@@ -1,7 +1,5 @@
 package lexer.input;
 
-import lexer.input.Input;
-
 public class StringInput implements Input {
 
     private String input;
@@ -32,10 +30,5 @@ public class StringInput implements Input {
         }
 
         return true;
-    }
-
-    @Override
-    public int length() {
-        return this.input.length();
     }
 }
