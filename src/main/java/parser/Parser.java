@@ -1,11 +1,13 @@
 package parser;
 
 import lexer.ILexer;
+import parser.AST.ASTNode;
 
-public class Parser implements IParser {
+public class Parser extends AbstractParser {
 
     @Override
-    public AST parse(ILexer lexer) {
-        return null;
+    public ASTNode parse(ILexer lexer) {
+        return getState().parse(this, lexer);
     }
+
 }

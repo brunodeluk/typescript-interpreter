@@ -16,6 +16,6 @@ public enum TokenType {
     DIVISION,
     OPEN_PARENTHESIS,
     CLOSING_PARENTHESIS,
-    COLON,
+    SEMICOLON,
     EOF
 }

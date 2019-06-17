@@ -1,2 +1,2 @@
-let nice: String = "hello world";
+let nice: String
 print(nice);

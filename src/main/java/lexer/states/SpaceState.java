@@ -32,6 +32,6 @@ public class SpaceState extends AbstractLexerState {
 
     @Override
     public boolean match(char c) {
-        return Pattern.matches("\\s+|;|\\x00", String.valueOf(c));
+        return Pattern.matches("\\s+|\\x00", String.valueOf(c));
     }
 }

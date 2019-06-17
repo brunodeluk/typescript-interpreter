@@ -27,6 +27,8 @@ public class DelimiterState extends AbstractLexerState {
                 return new Token(TokenType.TYPE_ASSIGNATION, getCleanCarry());
             case "=":
                 return new Token(TokenType.ASSIGNATION, getCleanCarry());
+            case ";":
+                return new Token(TokenType.SEMICOLON, getCleanCarry());
             default:
                 throw new InvalidTokenException(getCarry());
         }
@@ -39,6 +41,6 @@ public class DelimiterState extends AbstractLexerState {
 
     @Override
     public boolean match(char c) {
-        return Pattern.matches("[+\\-*/)(:=]", String.valueOf(c));
+        return Pattern.matches("[+\\-*/)(:=;]", String.valueOf(c));
     }
 }
