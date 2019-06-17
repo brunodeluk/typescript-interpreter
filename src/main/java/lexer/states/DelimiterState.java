@@ -2,6 +2,7 @@ package lexer.states;
 
 import lexer.InvalidTokenException;
 import lexer.Token;
+import lexer.TokenType;
 
 import java.util.regex.Pattern;
 
@@ -9,24 +10,26 @@ public class DelimiterState extends AbstractLexerState {
 
     @Override
     public Token getToken() {
-
-        if (Pattern.matches("[+\\-*/]", getCarry())) {
-            return new Token("OPERATOR", getCleanCarry());
+        switch (getCarry()) {
+            case "+":
+                return new Token(TokenType.PLUS, getCleanCarry());
+            case "-":
+                return new Token(TokenType.MINUS, getCleanCarry());
+            case "*":
+                return new Token(TokenType.MULTIPLICATION, getCleanCarry());
+            case "/":
+                return new Token(TokenType.DIVISION, getCleanCarry());
+            case "(":
+                return new Token(TokenType.OPEN_PARENTHESIS, getCleanCarry());
+            case ")":
+                return new Token(TokenType.CLOSING_PARENTHESIS, getCleanCarry());
+            case ":":
+                return new Token(TokenType.TYPE_ASSIGNATION, getCleanCarry());
+            case "=":
+                return new Token(TokenType.ASSIGNATION, getCleanCarry());
+            default:
+                throw new InvalidTokenException(getCarry());
         }
-        else if (Pattern.matches("\\(", getCarry())) {
-            return new Token("OPEN_PARENTHESIS", getCleanCarry());
-        }
-        else if (Pattern.matches("\\)", getCarry())) {
-            return new Token("CLOSE_PARENTHESIS", getCleanCarry());
-        }
-        else if (Pattern.matches(":", getCarry())) {
-            return new Token("TYPE_ASSIGNATION", getCleanCarry());
-        }
-        else if (Pattern.matches("=", getCarry())) {
-            return new Token("ASSIGNATION", getCleanCarry());
-        }
-
-        throw new InvalidTokenException(getCarry());
     }
 
     @Override

@@ -14,12 +14,11 @@ public class LexerTest {
         ILexer lexer = null;
 
         try {
-            lexer = new Lexer(new FileInput("src/main/resources/script.txt"), new SpaceState());
+            lexer = new Lexer(new FileInput("src/main/resources/script"), new SpaceState());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        System.out.println(lexer.nextToken());
         System.out.println(lexer.nextToken());
         System.out.println(lexer.nextToken());
         System.out.println(lexer.nextToken());

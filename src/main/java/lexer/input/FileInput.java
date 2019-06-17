@@ -8,7 +8,7 @@ import java.io.IOException;
 public class FileInput implements Input {
 
     private FileInputStream fs;
-    private char data;
+    private int data;
 
     public FileInput(String filename) throws FileNotFoundException {
         this.fs = new FileInputStream(new File(filename));
@@ -17,7 +17,7 @@ public class FileInput implements Input {
     @Override
     public void consume() {
         try {
-            this.data = (char) fs.read();
+            this.data = fs.read();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -25,13 +25,13 @@ public class FileInput implements Input {
 
     @Override
     public char next() {
-        return this.data;
+        return (char) this.data;
     }
 
     @Override
     public boolean hasNext() {
         try {
-            if (this.fs.available() >= 0) {
+            if (data != -1) {
                 return true;
             }
 

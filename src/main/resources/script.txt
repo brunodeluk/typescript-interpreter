@@ -1,2 +1,0 @@
-let nice: String = 3;
-print(nice);

@@ -1,0 +1,21 @@
+package lexer;
+
+public enum TokenType {
+    LET,
+    IDENTIFIER,
+    ASSIGNATION,
+    STRING_LITERAL,
+    NUMBER_LITERAL,
+    STRING_TYPE,
+    NUMBER_TYPE,
+    TYPE_ASSIGNATION,
+    PRINT,
+    PLUS,
+    MINUS,
+    MULTIPLICATION,
+    DIVISION,
+    OPEN_PARENTHESIS,
+    CLOSING_PARENTHESIS,
+    COLON,
+    EOF
+}

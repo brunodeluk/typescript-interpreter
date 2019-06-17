@@ -8,7 +8,8 @@ public class Lexer implements ILexer {
     private Input input;
     private LexerState state;
     private LexerState initialState;
-    private int position;
+    private int line;
+    private int column;
 
     public Lexer(Input input, LexerState initialState) {
         this.input = input;
@@ -19,10 +20,20 @@ public class Lexer implements ILexer {
     @Override
     public Token nextToken() {
         if (!input.hasNext()) {
-            return new Token("EOF", null);
+            return new Token(TokenType.EOF, null);
         }
 
-        return this.state.nextToken(this);
+        this.column++;
+
+        if (input.next() == '\n') {
+            this.column = 0;
+            this.line++;
+        }
+
+        Token token = this.state.nextToken(this);
+        token.setColumn(this.column);
+        token.setLine(this.line);
+        return token;
     }
 
     public Input getInput() {

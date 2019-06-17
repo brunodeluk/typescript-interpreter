@@ -1,18 +1,18 @@
 package lexer;
 
 public class Token {
-    private String type;
+    private TokenType type;
     private String value;
-    private int position;
+    private int line;
     private int column;
 
-    public Token(String type, String value) {
+    public Token(TokenType type, String value) {
         this.type = type;
         this.value = value;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setLine(int position) {
+        this.line = position;
     }
 
     public void setColumn(int column) {
@@ -24,7 +24,7 @@ public class Token {
         return "Token{" +
                 "type='" + type + '\'' +
                 ", value='" + value + '\'' +
-                ", position=" + position +
+                ", line=" + line +
                 ", column=" + column +
                 '}';
     }

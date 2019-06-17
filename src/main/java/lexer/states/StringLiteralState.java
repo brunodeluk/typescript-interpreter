@@ -2,6 +2,7 @@ package lexer.states;
 
 import lexer.Lexer;
 import lexer.Token;
+import lexer.TokenType;
 
 import java.util.regex.Pattern;
 
@@ -23,7 +24,7 @@ public class StringLiteralState extends AbstractLexerState {
 
     @Override
     public Token getToken() {
-        return new Token("STRING_LITERAL", getCleanCarry());
+        return new Token(TokenType.STRING_LITERAL, getCleanCarry());
     }
 
     @Override
