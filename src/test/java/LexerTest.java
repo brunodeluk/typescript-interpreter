@@ -14,7 +14,7 @@ public class LexerTest {
         ILexer lexer = null;
 
         try {
-            lexer = new Lexer(new FileInput("src/main/resources/script"), new SpaceState());
+            lexer = new Lexer(new FileInput("src/main/resources/script"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

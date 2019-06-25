@@ -11,6 +11,8 @@ public interface ASTVisitor {
     void visit(StringNode value);
     void visit(IntegerNode value);
     void visit(FloatNode value);
+    void visit(Identifier identifier);
+    void visit(Declaration declaration);
     void visit(VariableDeclaration variableDeclaration);
     void visit(Print print);
 }

@@ -1,2 +1,1 @@
-let nice: String
-print(nice);
+let a: Number = 1 + 1;

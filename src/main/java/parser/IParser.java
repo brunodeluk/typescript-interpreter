@@ -1,8 +1,8 @@
 package parser;
 
-import lexer.ILexer;
+import lexer.input.LexerInput;
 import parser.AST.ASTNode;
 
 public interface IParser {
-    ASTNode parse(ILexer lexer);
+    ASTNode parse(LexerInput lexer);
 }

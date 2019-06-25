@@ -1,7 +1,7 @@
 package lexer.input;
 
-public interface Input {
+public interface Input<T> {
     void consume();
-    char next();
+    T next();
     boolean hasNext();
 }

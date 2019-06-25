@@ -1,6 +1,6 @@
 package lexer.input;
 
-public class StringInput implements Input {
+public class StringInput implements Input<Character> {
 
     private String input;
     private int position;
@@ -16,7 +16,7 @@ public class StringInput implements Input {
     }
 
     @Override
-    public char next() {
+    public Character next() {
         return this.input.charAt(this.position);
     }
 

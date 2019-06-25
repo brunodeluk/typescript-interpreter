@@ -1,21 +1,13 @@
 package parser.AST;
 
-public class Assigment implements ASTNode {
+public class Declaration implements ASTNode {
 
     private Identifier identifier;
     private Expression expression;
 
-    public Assigment(Identifier identifier, Expression expression) {
+    public Declaration(Identifier identifier, Expression expression) {
         this.identifier = identifier;
         this.expression = expression;
-    }
-
-    public Identifier getIdentifier() {
-        return identifier;
-    }
-
-    public Expression getExpression() {
-        return expression;
     }
 
     @Override

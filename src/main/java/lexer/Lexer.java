@@ -2,18 +2,19 @@ package lexer;
 
 import lexer.input.Input;
 import lexer.states.LexerState;
+import lexer.states.SpaceState;
 
 public class Lexer implements ILexer {
 
-    private Input input;
+    private Input<Character> input;
     private LexerState state;
     private LexerState initialState;
     private int line;
     private int column;
 
-    public Lexer(Input input, LexerState initialState) {
+    public Lexer(Input<Character> input) {
         this.input = input;
-        this.initialState = initialState;
+        this.initialState = new SpaceState();
         this.state = initialState;
     }
 
@@ -36,7 +37,7 @@ public class Lexer implements ILexer {
         return token;
     }
 
-    public Input getInput() {
+    public Input<Character> getInput() {
         return input;
     }
 

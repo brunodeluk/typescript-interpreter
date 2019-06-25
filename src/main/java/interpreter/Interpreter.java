@@ -54,6 +54,16 @@ public class Interpreter implements ASTVisitor {
     }
 
     @Override
+    public void visit(Identifier identifier) {
+
+    }
+
+    @Override
+    public void visit(Declaration declaration) {
+
+    }
+
+    @Override
     public void visit(VariableDeclaration variableDeclaration) {
 
     }

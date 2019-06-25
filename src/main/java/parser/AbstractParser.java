@@ -7,6 +7,10 @@ public abstract class AbstractParser implements IParser {
     private ParserState<Parser> state;
     private ASTNode node;
 
+    public AbstractParser(ParserState<Parser> state) {
+        this.state = state;
+    }
+
     public void setState(ParserState<Parser> state) {
         this.state = state;
     }

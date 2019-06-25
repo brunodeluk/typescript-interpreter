@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class FileInput implements Input {
+public class FileInput implements Input<Character> {
 
     private FileInputStream fs;
     private int data;
@@ -24,7 +24,7 @@ public class FileInput implements Input {
     }
 
     @Override
-    public char next() {
+    public Character next() {
         return (char) this.data;
     }
 
