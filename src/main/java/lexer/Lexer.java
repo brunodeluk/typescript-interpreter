@@ -3,6 +3,8 @@ package lexer;
 import lexer.input.Input;
 import lexer.states.LexerState;
 import lexer.states.SpaceState;
+import lexer.tokens.EOFToken;
+import lexer.tokens.Token;
 
 public class Lexer implements ILexer {
 
@@ -18,23 +20,26 @@ public class Lexer implements ILexer {
         this.state = initialState;
     }
 
+    // TODO: set line and column to token
+
     @Override
     public Token nextToken() {
+
         if (!input.hasNext()) {
-            return new Token(TokenType.EOF, null);
+            return new EOFToken();
         }
 
+        manageLineAndColumn();
+        return this.state.nextToken(this);
+    }
+
+    private void manageLineAndColumn() {
         this.column++;
 
         if (input.next() == '\n') {
             this.column = 0;
             this.line++;
         }
-
-        Token token = this.state.nextToken(this);
-        token.setColumn(this.column);
-        token.setLine(this.line);
-        return token;
     }
 
     public Input<Character> getInput() {

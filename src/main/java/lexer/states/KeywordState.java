@@ -1,7 +1,6 @@
 package lexer.states;
 
-import lexer.Token;
-import lexer.TokenType;
+import lexer.tokens.*;
 
 import java.util.regex.Pattern;
 
@@ -21,18 +20,18 @@ public class KeywordState extends AbstractLexerState {
     public Token getToken() {
 
         if (Pattern.matches("let", getCarry())) {
-            return new Token(TokenType.LET, getCleanCarry());
+            return new LetToken();
         }
         else if (Pattern.matches("print", getCarry())) {
-            return new Token(TokenType.PRINT, getCleanCarry());
+            return new PrintToken();
         }
         else if (Pattern.matches("String", getCarry())) {
-            return new Token(TokenType.STRING_TYPE, getCleanCarry());
+            return new StringTypeToken();
         }
         else if (Pattern.matches("Number", getCarry())) {
-            return new Token(TokenType.NUMBER_TYPE, getCleanCarry());
+            return new NumberTypeToken();
         }
 
-        return new Token(TokenType.IDENTIFIER, getCleanCarry());
+        return new IdentifierToken(getCleanCarry());
     }
 }

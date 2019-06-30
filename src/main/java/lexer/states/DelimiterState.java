@@ -1,7 +1,8 @@
 package lexer.states;
 
 import lexer.InvalidTokenException;
-import lexer.Token;
+import lexer.Lexer;
+import lexer.tokens.*;
 import lexer.TokenType;
 
 import java.util.regex.Pattern;
@@ -9,26 +10,40 @@ import java.util.regex.Pattern;
 public class DelimiterState extends AbstractLexerState {
 
     @Override
+    public Token nextToken(Lexer lexer) {
+        char c = lexer.getInput().next();
+
+        if (!match(c)) {
+            lexer.setState(getNextState());
+            return lexer.nextToken();
+        }
+
+        carry(c);
+        lexer.getInput().consume();
+        return getToken();
+    }
+
+    @Override
     public Token getToken() {
-        switch (getCarry()) {
+        switch (getCleanCarry()) {
             case "+":
-                return new Token(TokenType.PLUS, getCleanCarry());
+                return new PlusToken();
             case "-":
-                return new Token(TokenType.MINUS, getCleanCarry());
+                return new MinusToken();
             case "*":
-                return new Token(TokenType.MULTIPLICATION, getCleanCarry());
+                return new MultiplicationToken();
             case "/":
-                return new Token(TokenType.DIVISION, getCleanCarry());
+                return new DivisionToken();
             case "(":
-                return new Token(TokenType.OPEN_PARENTHESIS, getCleanCarry());
+                return new OpenParenthesisToken();
             case ")":
-                return new Token(TokenType.CLOSING_PARENTHESIS, getCleanCarry());
+                return new ClosingParenthesisToken();
             case ":":
-                return new Token(TokenType.TYPE_ASSIGNATION, getCleanCarry());
+                return new TypeAssignationToken();
             case "=":
-                return new Token(TokenType.ASSIGNATION, getCleanCarry());
+                return new AssignationToken();
             case ";":
-                return new Token(TokenType.SEMICOLON, getCleanCarry());
+                return new SemicolonToken();
             default:
                 throw new InvalidTokenException(getCarry());
         }

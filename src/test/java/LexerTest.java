@@ -31,5 +31,17 @@ public class LexerTest {
         System.out.println(lexer.nextToken());
     }
 
+    @Test
+    public void test_2() {
+        ILexer lexer = new Lexer(new StringInput("print(\"hola\" + \"mundo\" + \"todo\" + \"bien?\");"));
+
+        System.out.println(lexer.nextToken());
+        System.out.println(lexer.nextToken());
+        System.out.println(lexer.nextToken());
+        System.out.println(lexer.nextToken());
+        System.out.println(lexer.nextToken());
+        System.out.println(lexer.nextToken());
+    }
+
 
 }

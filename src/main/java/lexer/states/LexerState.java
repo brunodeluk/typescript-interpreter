@@ -1,7 +1,7 @@
 package lexer.states;
 
 import lexer.Lexer;
-import lexer.Token;
+import lexer.tokens.Token;
 
 public interface LexerState {
     Token nextToken(Lexer lexer);

@@ -1,17 +1,12 @@
 package lexer.states;
 
 import lexer.Lexer;
-import lexer.Token;
+import lexer.tokens.Token;
 import lexer.TokenType;
 
 import java.util.regex.Pattern;
 
 public class StringState extends AbstractLexerState {
-
-    @Override
-    public LexerState getNextState() {
-        return new InvalidState();
-    }
 
     @Override
     public Token nextToken(Lexer lexer) {
@@ -33,7 +28,12 @@ public class StringState extends AbstractLexerState {
     }
 
     @Override
+    public LexerState getNextState() {
+        return new InvalidState();
+    }
+
+    @Override
     public Token getToken() {
-        return new Token(TokenType.NUMBER_LITERAL, getCleanCarry());
+        return null;
     }
 }

@@ -1,7 +1,7 @@
 package lexer.states;
 
 import lexer.InvalidTokenException;
-import lexer.Token;
+import lexer.tokens.Token;
 
 import java.util.regex.Pattern;
 
