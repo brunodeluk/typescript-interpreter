@@ -10,6 +10,7 @@ public interface ASTVisitor {
     void visit(StringNode value);
     void visit(IntegerNode value);
     void visit(IdentifierNode identifierNode);
+    void visit(ExpressionNode expressionNode);
     void visit(DeclarationNode declarationNode);
     void visit(PrintNode printNode);
 }

@@ -1,4 +1,4 @@
-let nice: String = "nice";
+let nice: Number = 3;
 print(nice);
 let _ni__ce_: String = "hello";
 print(nice);

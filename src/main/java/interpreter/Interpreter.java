@@ -109,6 +109,11 @@ public class Interpreter implements ASTVisitor {
     }
 
     @Override
+    public void visit(ExpressionNode expressionNode) {
+
+    }
+
+    @Override
     public void visit(PrintNode printNode) {
         printNode.getExpressionNode().accept(this);
 

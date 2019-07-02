@@ -4,7 +4,7 @@ import newparser.IllegalGrammarException;
 
 public class NumberValue implements Value<Integer> {
 
-    private final String TYPE = "String";
+    private final String TYPE = "Number";
     private Integer v;
 
     public NumberValue(Integer value) {
