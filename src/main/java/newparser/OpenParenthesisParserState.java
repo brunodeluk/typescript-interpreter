@@ -1,15 +1,14 @@
 package newparser;
 
+import lexer.tokens.ClosingParenthesisToken;
 import lexer.tokens.NumberLiteralToken;
 import lexer.tokens.StringLiteralToken;
 import newparser.ASTNodes.ASTNode;
 import newparser.ASTNodes.ExpressionNode;
-import newparser.ASTNodes.IntegerNode;
-import newparser.ASTNodes.StringNode;
 
-public class BasicOperationParserState extends AbstractParserState {
+public class OpenParenthesisParserState extends AbstractParserState {
 
-    private ExpressionNode expressionNode;
+    private ASTNode expressionNode;
 
     @Override
     public ASTNode getNode() {
@@ -18,13 +17,17 @@ public class BasicOperationParserState extends AbstractParserState {
 
     @Override
     public void visit(StringLiteralToken token) {
-        getInput().consume();
-        this.expressionNode = new StringNode(token.getLexeme());
+        this.expressionNode = new ExpressionParserState().parse(getInput());
     }
 
     @Override
     public void visit(NumberLiteralToken token) {
+        this.expressionNode = new ExpressionParserState().parse(getInput());
+    }
+
+    @Override
+    public void visit(ClosingParenthesisToken token) {
         getInput().consume();
-        this.expressionNode = new IntegerNode(Integer.valueOf(token.getLexeme()));
+        this.expressionNode = new ExpressionNode();
     }
 }

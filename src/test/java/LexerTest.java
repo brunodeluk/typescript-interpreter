@@ -27,13 +27,11 @@ public class LexerTest {
         System.out.println(lexer.nextToken());
         System.out.println(lexer.nextToken());
         System.out.println(lexer.nextToken());
-        System.out.println(lexer.nextToken());
-        System.out.println(lexer.nextToken());
     }
 
     @Test
     public void test_2() {
-        ILexer lexer = new Lexer(new StringInput("print(\"hola\" + \"mundo\" + \"todo\" + \"bien?\");"));
+        ILexer lexer = new Lexer(new StringInput("print();\n"));
 
         System.out.println(lexer.nextToken());
         System.out.println(lexer.nextToken());

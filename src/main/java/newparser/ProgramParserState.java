@@ -24,6 +24,7 @@ public class ProgramParserState extends AbstractParserState {
 
     @Override
     public void visit(IdentifierToken token) {
+        getInput().consume();
         programNode.add(new AssignationParserState().parse(getInput()));
     }
 
@@ -37,6 +38,12 @@ public class ProgramParserState extends AbstractParserState {
     public void visit(PrintToken token) {
         getInput().consume();
         programNode.add(new PrintParserState().parse(getInput()));
+        getInput().next().accept(this);
     }
 
+    @Override
+    public void visit(SemicolonToken token) {
+        getInput().consume();
+        getInput().next().accept(this);
+    }
 }

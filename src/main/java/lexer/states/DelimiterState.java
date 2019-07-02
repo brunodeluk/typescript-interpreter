@@ -18,8 +18,9 @@ public class DelimiterState extends AbstractLexerState {
             return lexer.nextToken();
         }
 
-        carry(c);
+        lexer.setState(lexer.getInitialState());
         lexer.getInput().consume();
+        carry(c);
         return getToken();
     }
 
@@ -42,8 +43,6 @@ public class DelimiterState extends AbstractLexerState {
                 return new TypeAssignationToken();
             case "=":
                 return new AssignationToken();
-            case ";":
-                return new SemicolonToken();
             default:
                 throw new InvalidTokenException(getCarry());
         }
@@ -51,11 +50,11 @@ public class DelimiterState extends AbstractLexerState {
 
     @Override
     public LexerState getNextState() {
-        return new KeywordState();
+        return new SemiColonState();
     }
 
     @Override
     public boolean match(char c) {
-        return Pattern.matches("[+\\-*/)(:=;]", String.valueOf(c));
+        return Pattern.matches("[+\\-*/)(:=]", String.valueOf(c));
     }
 }

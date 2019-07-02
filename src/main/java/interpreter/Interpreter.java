@@ -6,11 +6,11 @@ import java.util.Stack;
 
 public class Interpreter implements ASTVisitor {
 
-    private Stack stack;
+    private Stack<Value> stack;
     private Console console;
 
     public Interpreter(Console console) {
-        this.stack = new Stack();
+        this.stack = new Stack<>();
         this.console = console;
     }
 
@@ -30,28 +30,38 @@ public class Interpreter implements ASTVisitor {
 
     @Override
     public void visit(AdditionNode additionNode) {
-        additionNode.left().accept(this);
-        additionNode.right().accept(this);
-
-        String right = (String) this.stack.pop();
-        String left = (String) this.stack.pop();
-
-        this.stack.push(left + right);
+        operation(additionNode, Value::plus);
     }
 
     @Override
     public void visit(SubtractionNode subtractionNode) {
-
+        operation(subtractionNode, Value::minus);
     }
 
     @Override
     public void visit(DivisionNode divisionNode) {
-
+        operation(divisionNode, new CallbackOperation() {
+            @Override
+            public Value execute(Value right, Value left) {
+                return right.divide(left);
+            }
+        });
     }
 
     @Override
     public void visit(MultiplicationNode multiplicationNode) {
+        operation(multiplicationNode, Value::times);
+    }
 
+    public void operation(ExpressionNode node, CallbackOperation operation) {
+        node.left().accept(this);
+        node.right().accept(this);
+
+        Value right = this.stack.pop();
+        Value left = this.stack.pop();
+
+        Value result = operation.execute(right, left);
+        this.stack.push(result);
     }
 
     @Override
@@ -61,12 +71,12 @@ public class Interpreter implements ASTVisitor {
 
     @Override
     public void visit(StringNode value) {
-        this.stack.push(value.getValue());
+        this.stack.push(new StringValue(value.getValue()));
     }
 
     @Override
     public void visit(IntegerNode value) {
-
+        this.stack.push(new NumberValue(value.getValue()));
     }
 
     @Override
@@ -97,7 +107,14 @@ public class Interpreter implements ASTVisitor {
     @Override
     public void visit(PrintNode printNode) {
         printNode.getExpressionNode().accept(this);
-        String value = (String) this.stack.pop();
-        console.log(value);
+
+        if (this.stack.size() > 0) {
+            Value value = this.stack.pop();
+            console.log(value.getValue());
+        }
+    }
+
+    private interface CallbackOperation {
+        Value execute(Value right, Value left);
     }
 }

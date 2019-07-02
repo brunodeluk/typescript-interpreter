@@ -1,5 +1,6 @@
 package interpreter;
 
 public interface Console {
-    void log(String string);
+    void log(Object ...string);
+    void error(Exception e);
 }
