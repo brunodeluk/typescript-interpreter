@@ -93,11 +93,6 @@ public class Interpreter implements ASTVisitor {
     }
 
     @Override
-    public void visit(CallExpressionNode callExpressionNode) {
-
-    }
-
-    @Override
     public void visit(StringNode value) {
         this.stack.push(new StringValue(value.getValue()));
     }
@@ -108,24 +103,9 @@ public class Interpreter implements ASTVisitor {
     }
 
     @Override
-    public void visit(FloatNode value) {
-
-    }
-
-    @Override
     public void visit(IdentifierNode identifierNode) {
         checkAssignation(identifierNode.getIdentifier());
         stack.push(memory.read(identifierNode.getIdentifier()));
-    }
-
-    @Override
-    public void visit(ExpressionNode expressionNode) {
-
-    }
-
-    @Override
-    public void visit(VariableDeclarationNode variableDeclarationNode) {
-
     }
 
     @Override

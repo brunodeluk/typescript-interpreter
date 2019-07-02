@@ -4,6 +4,7 @@ import newparser.IllegalGrammarException;
 
 public class NumberValue implements Value<Integer> {
 
+    private final String TYPE = "String";
     private Integer v;
 
     public NumberValue(Integer value) {
@@ -80,7 +81,7 @@ public class NumberValue implements Value<Integer> {
 
     @Override
     public String getType() {
-        return "Number";
+        return TYPE;
     }
 
     @Override
