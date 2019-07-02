@@ -1,6 +1,7 @@
 package newparser;
 
 import lexer.tokens.ClosingParenthesisToken;
+import lexer.tokens.IdentifierToken;
 import lexer.tokens.NumberLiteralToken;
 import lexer.tokens.StringLiteralToken;
 import newparser.ASTNodes.ASTNode;
@@ -17,17 +18,26 @@ public class OpenParenthesisParserState extends AbstractParserState {
 
     @Override
     public void visit(StringLiteralToken token) {
-        this.expressionNode = new ExpressionParserState().parse(getInput());
+        assignExpression();
     }
 
     @Override
     public void visit(NumberLiteralToken token) {
-        this.expressionNode = new ExpressionParserState().parse(getInput());
+        assignExpression();
+    }
+
+    @Override
+    public void visit(IdentifierToken token) {
+        assignExpression();
     }
 
     @Override
     public void visit(ClosingParenthesisToken token) {
         getInput().consume();
         this.expressionNode = new ExpressionNode();
+    }
+
+    private void assignExpression() {
+        this.expressionNode = new ExpressionParserState().parse(getInput());
     }
 }

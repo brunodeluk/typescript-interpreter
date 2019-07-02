@@ -1,1 +1,13 @@
-print();
+let nice: String = "nice";
+print(nice);
+let _ni__ce_: String = "hello";
+print(nice);
+let google: String = nice + "hey";
+print(google);
+let result: Number = 4*3*4/3+3-1*5;
+print(result);
+let tt: Number = 12222;
+print(tt);
+print(_ni__ce_);
+let try: Number = 12;
+print(try/3);

@@ -18,11 +18,6 @@ public class PrintParserState extends AbstractParserState {
         return this.printNode;
     }
 
-//    @Override
-//    public void visit(StringLiteralToken token) {
-//        this.printNode.setExpressionNode((ExpressionNode) new ExpressionParserState().parse(getInput()));
-//    }
-
     @Override
     public void visit(OpenParenthesisToken token) {
         getInput().consume();

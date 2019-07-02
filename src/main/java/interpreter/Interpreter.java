@@ -1,16 +1,26 @@
 package interpreter;
 
+import com.sun.corba.se.impl.io.TypeMismatchException;
 import newparser.ASTNodes.*;
+import newparser.IllegalGrammarException;
 
 import java.util.Stack;
 
 public class Interpreter implements ASTVisitor {
 
     private Stack<Value> stack;
+    private Memory<String, Value> memory;
     private Console console;
+
+    public Interpreter(Console console, Memory<String, Value> memory) {
+        this.stack = new Stack<>();
+        this.memory = memory;
+        this.console = console;
+    }
 
     public Interpreter(Console console) {
         this.stack = new Stack<>();
+        this.memory = new LocalStorage();
         this.console = console;
     }
 
@@ -24,8 +34,31 @@ public class Interpreter implements ASTVisitor {
     }
 
     @Override
-    public void visit(AssigmentNode assigmentNode) {
+    public void visit(DeclarationNode declarationNode) {
+        String id = declarationNode.getIdentifierNode().getIdentifier();
+        String type = declarationNode.getType();
 
+        checkDeclaration(id);
+
+        declarationNode.getExpressionNode().accept(this);
+        Value result = stack.pop();
+
+        checkTypeOfValueWithId(result, type, id);
+        memory.save(id, result);
+    }
+
+    @Override
+    public void visit(AssigmentNode assigmentNode) {
+        String id = assigmentNode.getIdentifierNode().getIdentifier();
+        checkAssignation(id);
+
+        String type = memory.read(id).getType();
+
+        assigmentNode.getExpressionNode().accept(this);
+        Value result = stack.pop();
+
+        checkTypeOfValueWithId(result, type, id);
+        memory.save(id, result);
     }
 
     @Override
@@ -40,12 +73,7 @@ public class Interpreter implements ASTVisitor {
 
     @Override
     public void visit(DivisionNode divisionNode) {
-        operation(divisionNode, new CallbackOperation() {
-            @Override
-            public Value execute(Value right, Value left) {
-                return right.divide(left);
-            }
-        });
+        operation(divisionNode, Value::divide);
     }
 
     @Override
@@ -86,12 +114,8 @@ public class Interpreter implements ASTVisitor {
 
     @Override
     public void visit(IdentifierNode identifierNode) {
-
-    }
-
-    @Override
-    public void visit(DeclarationNode declarationNode) {
-
+        checkAssignation(identifierNode.getIdentifier());
+        stack.push(memory.read(identifierNode.getIdentifier()));
     }
 
     @Override
@@ -116,5 +140,23 @@ public class Interpreter implements ASTVisitor {
 
     private interface CallbackOperation {
         Value execute(Value right, Value left);
+    }
+
+    private void checkDeclaration(String id) {
+        if (memory.has(id)) {
+            throw new IllegalGrammarException(String.format("variable %s is already defined", id));
+        }
+    }
+
+    private void checkAssignation(String id) {
+        if (!memory.has(id)) {
+            throw new IllegalGrammarException(String.format("variable %s is not defined", id));
+        }
+    }
+
+    private void checkTypeOfValueWithId(Value value, String type, String id) {
+        if (!value.is(type)) {
+            throw new TypeMismatchException(String.format("%s is not of type %s", id, type));
+        }
     }
 }

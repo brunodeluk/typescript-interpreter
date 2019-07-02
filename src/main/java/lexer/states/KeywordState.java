@@ -13,7 +13,7 @@ public class KeywordState extends AbstractLexerState {
 
     @Override
     public boolean match(char c) {
-        return Pattern.matches("[a-zA-Z]", String.valueOf(c));
+        return Pattern.matches("[a-zA-Z_]", String.valueOf(c));
     }
 
     @Override

@@ -1,11 +1,12 @@
 package lexer.states;
 
+import lexer.Lexer;
 import lexer.tokens.SemicolonToken;
 import lexer.tokens.Token;
 
 import java.util.regex.Pattern;
 
-public class SemiColonState extends AbstractLexerState {
+public class SemiColonState extends DelimiterState {
 
     @Override
     public Token getToken() {

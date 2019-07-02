@@ -73,4 +73,14 @@ public class StringValue implements Value<String> {
     public String getValue() {
         return this.v;
     }
+
+    @Override
+    public String getType() {
+        return "String";
+    }
+
+    @Override
+    public boolean is(String type) {
+        return type.equals(getType());
+    }
 }

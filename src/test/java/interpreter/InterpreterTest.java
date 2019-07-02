@@ -44,10 +44,4 @@ public class InterpreterTest {
         interpreter.start(node);
     }
 
-    @Test
-    public void cero() {
-        int i = 12 / 2;
-        assertEquals(0, i);
-    }
-
 }

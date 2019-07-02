@@ -78,5 +78,16 @@ public class NumberValue implements Value<Integer> {
         return this.v;
     }
 
+    @Override
+    public String getType() {
+        return "Number";
+    }
+
+    @Override
+    public boolean is(String type) {
+        return type.equals(getType());
+    }
+
+
 
 }

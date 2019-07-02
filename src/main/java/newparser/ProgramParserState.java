@@ -1,8 +1,7 @@
 package newparser;
 
 import lexer.tokens.*;
-import newparser.ASTNodes.ASTNode;
-import newparser.ASTNodes.ProgramNode;
+import newparser.ASTNodes.*;
 
 public class ProgramParserState extends AbstractParserState {
 
@@ -25,13 +24,22 @@ public class ProgramParserState extends AbstractParserState {
     @Override
     public void visit(IdentifierToken token) {
         getInput().consume();
-        programNode.add(new AssignationParserState().parse(getInput()));
+
+        programNode.add(
+                new AssigmentNode(
+                        new IdentifierNode(token.getLexeme()),
+                        (ExpressionNode) new AssignationParserState().parse(getInput())
+                )
+        );
+
+        getInput().next().accept(this);
     }
 
     @Override
     public void visit(LetToken token) {
         getInput().consume();
         programNode.add(new DeclarationParserState().parse(getInput()));
+        getInput().next().accept(this);
     }
 
     @Override

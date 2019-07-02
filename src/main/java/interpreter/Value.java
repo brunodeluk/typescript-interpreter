@@ -16,4 +16,6 @@ public interface Value<T> {
     Value minus(Value value);
 
     T getValue();
+    String getType();
+    boolean is(String type);
 }

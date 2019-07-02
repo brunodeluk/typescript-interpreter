@@ -19,11 +19,7 @@ public class ExpressionParserState extends AbstractParserState {
 
     @Override
     public void visit(StringLiteralToken token) {
-        if (literal) {
-            throw new IllegalGrammarException(token.getLexeme());
-        }
-
-        this.literal = true;
+        checkStateLiteral();
         getInput().consume();
         this.expressionNode = new StringNode(token.getLexeme());
         getInput().next().accept(this);
@@ -32,11 +28,7 @@ public class ExpressionParserState extends AbstractParserState {
 
     @Override
     public void visit(NumberLiteralToken token) {
-        if (literal) {
-            throw new IllegalGrammarException(token.getLexeme());
-        }
-
-        this.literal = true;
+        checkStateLiteral();
         getInput().consume();
         this.expressionNode = new IntegerNode(Integer.valueOf(token.getLexeme()));
         getInput().next().accept(this);
@@ -44,12 +36,17 @@ public class ExpressionParserState extends AbstractParserState {
     }
 
     @Override
-    public void visit(PlusToken token) {
-        if (!literal) {
-            throw new IllegalGrammarException(token.getLexeme());
-        }
+    public void visit(IdentifierToken token) {
+        checkStateLiteral();
+        getInput().consume();
+        this.expressionNode = new IdentifierNode(token.getLexeme());
+        getInput().next().accept(this);
+        this.expressionNode.setLeft(new IdentifierNode(token.getLexeme()));
+    }
 
-        this.literal = false;
+    @Override
+    public void visit(PlusToken token) {
+        checkStateNotLiteral();
         getInput().consume();
         this.expressionNode = new AdditionNode(
                 null,
@@ -58,11 +55,7 @@ public class ExpressionParserState extends AbstractParserState {
 
     @Override
     public void visit(MinusToken token) {
-        if (!literal) {
-            throw new IllegalGrammarException(token.getLexeme());
-        }
-
-        this.literal = false;
+        checkStateNotLiteral();
         getInput().consume();
         this.expressionNode = new SubtractionNode(
                 null,
@@ -71,11 +64,7 @@ public class ExpressionParserState extends AbstractParserState {
 
     @Override
     public void visit(MultiplicationToken token) {
-        if (!literal) {
-            throw new IllegalGrammarException(token.getLexeme());
-        }
-
-        this.literal = false;
+        checkStateNotLiteral();
         getInput().consume();
         this.expressionNode = new MultiplicationNode(
                 null,
@@ -84,11 +73,7 @@ public class ExpressionParserState extends AbstractParserState {
 
     @Override
     public void visit(DivisionToken token) {
-        if (!literal) {
-            throw new IllegalGrammarException(token.getLexeme());
-        }
-
-        this.literal = false;
+        checkStateNotLiteral();
         getInput().consume();
         this.expressionNode = new DivisionNode(
                 null,
@@ -97,16 +82,27 @@ public class ExpressionParserState extends AbstractParserState {
 
     @Override
     public void visit(ClosingParenthesisToken token) {
-        if (!literal) {
-            throw new IllegalGrammarException(token.getLexeme());
-        }
+        checkStateNotLiteral();
         getInput().consume();
     }
 
     @Override
     public void visit(SemicolonToken token) {
-        if (!literal) {
-            throw new IllegalGrammarException(token.getLexeme());
+        checkStateNotLiteral();
+    }
+
+    private void checkStateLiteral() {
+        if (literal) {
+            throw new IllegalGrammarException();
         }
+        this.literal = true;
+    }
+
+    private void checkStateNotLiteral() {
+        if (!literal) {
+            throw new IllegalGrammarException();
+        }
+
+        this.literal = false;
     }
 }
