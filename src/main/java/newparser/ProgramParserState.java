@@ -28,9 +28,7 @@ public class ProgramParserState extends AbstractParserState {
         programNode.add(
                 new AssigmentNode(
                         new IdentifierNode(token.getLexeme()),
-                        (ExpressionNode) new AssignationParserState().parse(getInput())
-                )
-        );
+                        (ExpressionNode) new AssignationParserState().parse(getInput())));
 
         getInput().next().accept(this);
     }

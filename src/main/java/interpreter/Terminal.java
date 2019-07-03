@@ -3,6 +3,7 @@ package interpreter;
 import java.util.StringJoiner;
 
 public class Terminal implements Console {
+
     @Override
     public void log(Object ...string) {
         StringJoiner joiner = new StringJoiner(" ");

@@ -4,7 +4,7 @@ import lexer.input.Input;
 import lexer.tokens.Token;
 import newparser.ASTNodes.ASTNode;
 
-public class Parser {
+public class Parser implements IParserState {
 
     private IParserState state;
 
@@ -12,12 +12,9 @@ public class Parser {
         this.state = new ProgramParserState();
     }
 
+    @Override
     public ASTNode parse(Input<Token> input) {
         return this.state.parse(input);
-    }
-
-    public void setState(IParserState newState) {
-        this.state = newState;
     }
 
 }

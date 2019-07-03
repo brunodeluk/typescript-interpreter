@@ -54,12 +54,4 @@ public class ValueTest {
         assertEquals(1, result.getValue());
     }
 
-//    @Test
-//    public void dividing_by_cero_should_throw_exception() {
-//        Value numberValue = new NumberValue(0);
-//        Value numberValue2 = new NumberValue(1);
-//        Value result = numberValue2.plus(numberValue);
-//        assertThat(result, );
-//    }
-
 }

@@ -13,7 +13,7 @@ public class ExpressionParserState extends AbstractParserState {
     }
 
     @Override
-    public ASTNode getNode() {
+    public ExpressionNode getNode() {
         return this.expressionNode;
     }
 

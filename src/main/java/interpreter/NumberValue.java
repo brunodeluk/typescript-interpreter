@@ -2,7 +2,7 @@ package interpreter;
 
 import newparser.IllegalGrammarException;
 
-public class NumberValue implements Value<Integer> {
+public class NumberValue implements Value {
 
     private final String TYPE = "Number";
     private Integer v;
@@ -49,7 +49,7 @@ public class NumberValue implements Value<Integer> {
     @Override
     public Value divide(NumberValue value) {
         if (this.v == 0) {
-            throw new ArithmeticException("Can not divide by cero");
+            throw new ArithmeticException("Can not divide by zero");
         }
 
         return new NumberValue(v / value.getValue());

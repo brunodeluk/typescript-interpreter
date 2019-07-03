@@ -2,7 +2,7 @@ package interpreter;
 
 import newparser.IllegalGrammarException;
 
-public class StringValue implements Value<String> {
+public class StringValue implements Value {
 
     private final String TYPE = "String";
     private String v;
@@ -71,6 +71,7 @@ public class StringValue implements Value<String> {
         return value.minus(this);
     }
 
+    @Override
     public String getValue() {
         return this.v;
     }
